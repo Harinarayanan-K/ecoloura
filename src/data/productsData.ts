@@ -1,4 +1,4 @@
-import { Product } from '../types';
+import type { Product } from '../types/index.js';
 
 export const productsData: Product[] = [
   {
@@ -156,6 +156,6 @@ export const productsData: Product[] = [
   }
 ];
 
-export const portfolioData: import("../types").PortfolioItem[] = [];
-export const testimonialsData: import("../types").TestimonialItem[] = [];
-export const faqData: import("../types").FaqItem[] = [];
+export const portfolioData: import("../types/index.js").PortfolioItem[] = [];
+export const testimonialsData: import("../types/index.js").TestimonialItem[] = [];
+export const faqData: import("../types/index.js").FaqItem[] = [];

@@ -1,5 +1,5 @@
-import { businessInfo, clients, faqs, sampleReviews } from '../data/siteData';
-import { productsData } from '../data/productsData';
+import { businessInfo, clients, faqs, sampleReviews } from '../data/siteData.js';
+import { productsData } from '../data/productsData.js';
 
 const normalize = (text: string) => text.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 const listClients = (items = clients) => items.map(([name, type]) => `${name} (${type})`).join(', ');

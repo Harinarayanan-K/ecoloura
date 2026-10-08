@@ -61,3 +61,7 @@ Modified: `src/chat/LocalChatPanel.tsx`, `src/chat/config.ts`, `src/chat/protoco
 Removed obsolete browser model runtime: `src/chat/useLocalChat.ts`, `src/chat/llm.worker.ts`, `src/chat/capabilities.ts`, `src/chat/errors.ts`, `scripts/vendor-chat-model.mjs`, WebLLM and WebGPU type dependencies. Earlier local-AI docs/test results describe the superseded implementation, not this Groq deployment.
 
 Official API references: https://console.groq.com/docs/api-reference and https://vercel.com/docs/functions/runtimes/node-js.
+
+Deployment compatibility fix: server-side imports use explicit `.js` extensions for Node ESM, including shared website knowledge dependencies. `npm run build` now checks `tsconfig.api.json` with NodeNext resolution as well as the frontend. Verified that the emitted API entry loads in native Node and returns its expected HTTP response; this catches import failures that frontend bundling and mocked tests can miss. If Vercel reports FUNCTION_INVOCATION_FAILED, inspect the failed `/api/chat` request in runtime Logs for the exact startup exception and redeploy the corrected source.
+
+The API entry now uses the conventional Vercel Node `(request, response)` handler, adapting to the tested Web Request core and copying streamed deltas to the Node response. Native Node entry execution and a dedicated parsed-body/streaming adapter test passed. Latest regression run: 14 passed, 1 live-key test skipped. Redeploy source changes before rechecking the public endpoint; runtime logs remain necessary to identify any remaining startup failure.

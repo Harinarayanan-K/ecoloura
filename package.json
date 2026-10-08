@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000 --host",
-    "build": "tsc && vite build",
+    "build": "tsc && tsc -p tsconfig.api.json && vite build",
     "preview": "vite preview --port 3000",
     "test:chat": "playwright test",
     "test:chat:real": "CHAT_REAL_MODEL=1 playwright test tests/chat-real.spec.ts"

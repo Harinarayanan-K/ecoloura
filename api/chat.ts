@@ -1,8 +1,8 @@
-import { completionMessages } from '../src/chat/knowledge';
-import { CHAT_CONFIG } from '../src/chat/config';
-import type { ChatMessage } from '../src/chat/protocol';
+import { completionMessages } from '../src/chat/knowledge.js';
+import { CHAT_CONFIG } from '../src/chat/config.js';
+import type { ChatMessage } from '../src/chat/protocol.js';
 
-// Vercel Node.js Web Standard function. The key is never imported by the page.
+// Vercel Node.js function. The key is never imported by the page.
 declare const process: { env: Record<string, string | undefined> };
 export const maxDuration = 60;
 const headers = { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
@@ -107,9 +107,78 @@ export function createChatHandler(options: { apiKey?: string; model?: string; fe
   };
 }
 
-// Lazy options ensure Vercel environment variables are read only on the server.
-let handler: ReturnType<typeof createChatHandler> | undefined;
-export default { fetch(request: Request) {
-  handler ||= createChatHandler({ apiKey: process.env.GROQ_API_KEY, model: process.env.GROQ_MODEL });
-  return handler(request);
-} };
+// Conventional Vercel Node handler, compatible with the deployed Vite runtime.
+interface NodeRequest extends AsyncIterable<Uint8Array> {
+  method?: string;
+  url?: string;
+  headers: Record<string, string | string[] | undefined>;
+  body?: unknown;
+}
+interface NodeResponse {
+  statusCode: number;
+  headersSent?: boolean;
+  destroyed?: boolean;
+  setHeader(name: string, value: string): void;
+  write(chunk: Uint8Array): boolean;
+  end(body?: string): void;
+  on(event: string, callback: () => void): void;
+  off(event: string, callback: () => void): void;
+  once(event: string, callback: () => void): void;
+}
+export function createNodeHandler(options: Parameters<typeof createChatHandler>[0] = {}) {
+  const handle = createChatHandler(options);
+  return async (req: NodeRequest, res: NodeResponse) => {
+    const controller = new AbortController();
+    const abort = () => controller.abort();
+    res.on('close', abort);
+    try {
+      const requestHeaders = new Headers();
+      for (const [key, value] of Object.entries(req.headers)) if (value !== undefined) requestHeaders.set(key, Array.isArray(value) ? value.join(', ') : value);
+      const protocol = requestHeaders.get('x-forwarded-proto')?.split(',')[0] || 'https';
+      const host = requestHeaders.get('host');
+      if (!host || !['http', 'https'].includes(protocol)) { res.statusCode = 400; res.end('Invalid request host'); return; }
+      let raw = '';
+      if (req.method === 'POST') {
+        if (req.body !== undefined) raw = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+        else {
+          const decoder = new TextDecoder(); let size = 0;
+          for await (const chunk of req) {
+            size += chunk.byteLength;
+            if (size > 16000) { res.statusCode = 413; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify({ error: 'Your conversation is too long. Please start a New Chat.' })); return; }
+            raw += decoder.decode(chunk, { stream: true });
+          }
+          raw += decoder.decode();
+        }
+      }
+      const request = new Request(new URL(req.url || '/api/chat', `${protocol}://${host}`), {
+        method: req.method || 'GET', headers: requestHeaders, signal: controller.signal,
+        ...(req.method === 'POST' ? { body: raw } : {}),
+      });
+      const response = await handle(request);
+      res.statusCode = response.status;
+      response.headers.forEach((value, key) => res.setHeader(key, value));
+      if (response.body) {
+        const reader = response.body.getReader();
+        try {
+          while (!res.destroyed) {
+            const { done, value } = await reader.read(); if (done) break;
+            if (!res.write(value)) await new Promise<void>(resolve => {
+              const finish = () => { res.off('drain', finish); res.off('close', finish); resolve(); };
+              res.once('drain', finish); res.once('close', finish);
+            });
+          }
+        } finally { await reader.cancel().catch(() => {}); }
+      }
+      res.end();
+    } catch {
+      // No prompts, credentials, or provider responses are logged.
+      if (!res.headersSent) { res.statusCode = 500; res.setHeader('Content-Type', 'application/json'); }
+      if (!res.destroyed) res.end(JSON.stringify({ error: 'The AI assistant encountered a server error. Please try again.' }));
+    } finally { res.off('close', abort); controller.abort(); }
+  };
+}
+let nodeHandler: ReturnType<typeof createNodeHandler> | undefined;
+export default async function chat(req: NodeRequest, res: NodeResponse) {
+  nodeHandler ||= createNodeHandler({ apiKey: process.env.GROQ_API_KEY, model: process.env.GROQ_MODEL });
+  return nodeHandler(req, res);
+}

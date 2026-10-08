@@ -51,3 +51,15 @@ test('provider quota, provider failures, truncated streams and abuse limits are 
   for (let i = 0; i < 10; i++) expect((await handler(request({ question: 'Hello', history: [] }))).status).toBe(200);
   expect((await handler(request({ question: 'Hello', history: [] }))).status).toBe(429);
 });
+
+test('conventional Vercel Node entry accepts parsed body and streams to Node response', async () => {
+  const { createNodeHandler, default: entry } = await import('../api/chat');
+  expect(typeof entry).toBe('function');
+  const handle = createNodeHandler({ apiKey: 'TEST_ONLY_KEY', fetchImpl: async () => streamResponse() });
+  const req = { method: 'POST', url: '/api/chat', headers: { host: 'ecoloura.example', origin: 'https://ecoloura.example', 'content-type': 'application/json', 'x-forwarded-proto': 'https' }, body: { question: 'Who are your clients?', history: [] }, async *[Symbol.asyncIterator]() {} };
+  let result = ''; const headers: Record<string, string> = {}; let ended = false;
+  const res = { statusCode: 0, setHeader: (key: string, value: string) => { headers[key] = value; }, write: (chunk: Uint8Array) => { result += new TextDecoder().decode(chunk); return true; }, end: () => { ended = true; }, on: () => {}, off: () => {}, once: () => {} };
+  await handle(req, res);
+  expect(res.statusCode).toBe(200); expect(headers['content-type']).toContain('application/x-ndjson');
+  expect(result).toContain('"text":"Hello "'); expect(result).toContain('"done":true'); expect(ended).toBe(true);
+});
