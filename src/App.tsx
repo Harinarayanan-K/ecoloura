@@ -6,18 +6,14 @@ import { ProductModal } from './components/ProductModal';
 import { RevealHeading } from './components/RevealHeading';
 import { RevealImage } from './components/RevealImage';
 import { productsData } from './data/productsData';
+import { clients, faqs, sampleReviews } from './data/siteData';
 import { Product } from './types';
 import { WhatsAppEnquiry } from './components/WhatsAppEnquiry';
+import { AIChatbot } from './components/AIChatbot';
 import { contactEmail, contactPhone, catalogueUrl, inquiryMessage, emailInquiryUrl, whatsappUrl } from './lib/contact';
 
 const email = contactEmail;
 const phone = contactPhone;
-const clients = [
-  ['Aster', 'Healthcare'], ['KIMS Al Shifa', 'Perinthalmanna'], ['Moulana Hospital', 'Healthcare'],
-  ['Hotel Waves Inn', 'Hospitality'], ['Grand Residency', 'Hospitality'], ['Mamalla Inn', 'Hospitality'],
-  ['Malabar Inn Hotel & Spa', 'Hospitality'], ['MPS Royal Suites', 'Hospitality'], ['Mahbliss Pines', 'Hospitality'],
-  ['Asian Mother & Child', 'Healthcare'], ['Grand View Inn', 'Hospitality'], ["Erica’s Property Management", 'Property management'],
-];
 function ClientBadgeRow({ items, reverse = false, paused = false, compact = false }: { items: string[][]; reverse?: boolean; paused?: boolean; compact?: boolean }) {
   return <div className={`client-marquee ${compact ? 'client-marquee-compact' : ''}`}>
     <div className={`client-marquee-track ${reverse ? 'client-marquee-reverse' : ''} ${paused ? 'is-paused' : ''}`}>
@@ -31,12 +27,6 @@ function ClientBadgeRow({ items, reverse = false, paused = false, compact = fals
   </div>;
 }
 
-const faqs = [
-  ['Can you add our brand to the amenities?', 'Yes. We supply customized and private-label amenities for hotels, resorts, hospitals, and other institutions. Share your logo and packaging preferences, and we’ll discuss suitable options for your order.'],
-  ['What is the minimum order quantity?', 'Minimum quantities vary by product, packaging, and customization. Tell us which items you need and your expected volume so we can provide an accurate quotation.'],
-  ['Do you supply hospitals as well as hotels?', 'Yes. Our clients include hospitality properties and healthcare establishments. We can help put together a practical selection of personal-care and guest-use essentials for your requirements.'],
-  ['Can we arrange samples before a bulk order?', 'Contact our team to discuss available samples, any associated costs, and delivery arrangements before confirming a recurring or customized order.'],
-];
 
 function Inquiry({ onClose, initialProduct }: { onClose: () => void; initialProduct?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -89,6 +79,10 @@ export default function App() {
   const [menu, setMenu] = useState(false);
   const [clientsPaused, setClientsPaused] = useState(false);
   const [whatsappProduct, setWhatsappProduct] = useState<string | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const closeChat = React.useCallback(() => setChatOpen(false), []);
+  const openChat = React.useCallback(() => { setWhatsappProduct(null); setChatOpen(true); }, []);
+  const openWhatsApp = React.useCallback((product: string | null) => { if (product !== null) setChatOpen(false); setWhatsappProduct(product); }, []);
   const [selected, setSelected] = useState<Product | null>(null);
   const [inquiry, setInquiry] = useState<string | null>(null);
   const [faq, setFaq] = useState<number | null>(0);
@@ -178,7 +172,7 @@ export default function App() {
         <div className="approach-description"><p>From the first freshen-up to the comforts of a guest room, the smallest essentials say something about you. We help make that something special.</p><p>Ecolourà supplies guest-use products to hotels, resorts, hospitals, and care establishments, with custom branding and bulk supply built around your needs.</p><a className="text-button" href="#solutions">A partnership tailored to you <ArrowUpRight size={17} /></a></div>
         <div className="benefits">{[[Palette, 'Distinctly your brand', 'Private-label packaging that brings your property’s identity to every guest touchpoint.'], [PackageCheck, 'Everyday essentials, elevated', 'A practical, coordinated collection for personal care, grooming, and in-room comfort.'], [Truck, 'Built for your operations', 'Bulk ordering and repeat supply planned around the way your property works.']].map(([Icon, title, description], i) => { const Symbol = Icon as typeof Palette; return <article key={i}><Symbol size={25} strokeWidth={1.2} /><span className="benefit-number">0{i + 1}</span><h3>{title as string}</h3><p>{description as string}</p></article>; })}</div>
       </section>
-      <ProductsCatalog products={productsData} onSelectProduct={setSelected} onQuickInquire={p => setWhatsappProduct(p.name)} />
+      <ProductsCatalog products={productsData} onSelectProduct={setSelected} onQuickInquire={p => openWhatsApp(p.name)} />
       <section className="bespoke-section section-shell reveal">
         <div className="bespoke-visual"><RevealImage variant="lifestyle" src="/assets/images/products/vanity-kit.png" alt="Ecolourà original vanity kit and individually packaged guest amenities" loading="lazy" /><span className="bespoke-stamp">YOUR<br />BRAND<br /><span>beautifully considered</span></span><div className="visual-caption"><span>THE PRIVATE-LABEL COLLECTION</span><span>Made for you ↗</span></div></div>
         <div className="bespoke-copy"><span className="eyebrow">YOUR SIGNATURE, IN EVERY DETAIL</span><RevealHeading>Our essentials.<br /><em>Your identity.</em></RevealHeading><p>A welcome that feels like you. Create a cohesive amenity collection with your property’s branding, thoughtfully coordinated from packaging to presentation.</p><ul><li><Check size={16} /> Custom logo & branded packaging</li><li><Check size={16} /> Product selections for your guest needs</li><li><Check size={16} /> Bulk & recurring institutional orders</li></ul><button className="premium-button" onClick={() => setInquiry('Custom-branded amenities')}>Let’s create your collection <ArrowUpRight size={18} /></button></div>
@@ -189,17 +183,14 @@ export default function App() {
         <ClientBadgeRow items={clients.slice(0, 6)} paused={clientsPaused} />
         <ClientBadgeRow items={clients.slice(6)} reverse paused={clientsPaused} />
       </div>
-      <div className="reviews-heading"><span className="eyebrow">A PARTNER’S PERSPECTIVE</span><span className="demo-label">Sample reviews · Illustrative copy</span></div><div className="review-grid">{[
-        ['“A coordinated amenity selection makes our rooms feel more considered. Having our own branding on the essentials is a lovely finishing touch.”', 'Hotel purchasing team', 'Sample hospitality review'],
-        ['“We value a supplier who understands everyday patient-care needs and helps us plan our essential products around regular requirements.”', 'Healthcare procurement team', 'Sample healthcare review'],
-        ['“From choosing the right guest kits to planning repeat orders, a personal and practical approach makes the process much easier.”', 'Property operations team', 'Sample property review'],
-      ].map(([quote, author, role]) => <article className="review-card" key={author}><Quote size={24} strokeWidth={1} /><blockquote>{quote}</blockquote><div><strong>{author}</strong><span>{role}</span></div></article>)}</div><p className="review-disclosure">These sample reviews are mock content for the design preview, not actual client endorsements.</p></section>
+      <div className="reviews-heading"><span className="eyebrow">A PARTNER’S PERSPECTIVE</span><span className="demo-label">Sample reviews · Illustrative copy</span></div><div className="review-grid">{sampleReviews.map(([quote, author, role]) => <article className="review-card" key={author}><Quote size={24} strokeWidth={1} /><blockquote>{quote}</blockquote><div><strong>{author}</strong><span>{role}</span></div></article>)}</div><p className="review-disclosure">These sample reviews are mock content for the design preview, not actual client endorsements.</p></section>
       <section className="faq-premium section-shell reveal"><div><span className="eyebrow">A FEW HELPFUL DETAILS</span><RevealHeading>Good questions.<br /><em>Thoughtful answers.</em></RevealHeading><p>Have something else in mind?<br /><a href={`mailto:${email}`} className="text-button">Ask our team <ArrowUpRight size={16} /></a></p></div><div className="faq-list">{faqs.map(([question, answer], i) => <article key={question} className={faq === i ? 'faq-open' : ''}><button onClick={() => setFaq(faq === i ? null : i)} aria-expanded={faq === i} aria-controls={`faq-answer-${i}`}>{question}{faq === i ? <Minus size={18} /> : <Plus size={18} />}</button><div id={`faq-answer-${i}`} hidden={faq !== i}><p>{answer}</p></div></article>)}</div></section>
       <section className="contact-banner" id="contact"><span className="eyebrow">THE NEXT GREAT WELCOME STARTS HERE</span><RevealHeading>Let’s make your guests<br /><em>feel at home.</em></RevealHeading><button className="premium-button light-button" onClick={() => setInquiry('')}>Start a conversation <ArrowUpRight size={20} /></button><span className="contact-decoration" aria-hidden="true">e.</span></section>
     </main>
     <footer className="premium-footer"><div className="footer-main"><div><a className="wordmark" href="#home">ecolourà<span>HOSPITALITY AMENITIES</span></a><p>Small details. Lasting impressions.<br />Guest essentials for hospitality & healthcare.</p></div><div><span className="footer-label">EXPLORE</span>{links.map(([label, href]) => <a key={href} href={href}>{label}</a>)}<a href={catalogueUrl} download="Ecoloura-Product-Catalogue.pdf"><Download size={14} /> Product catalogue</a></div><div><span className="footer-label">LET’S CONNECT</span><a href={`tel:${phone}`}><Phone size={15} /> +91 85903 65077</a><a href={`mailto:${email}`}><Mail size={15} /> {email}</a><span>Bulk supply & private-label enquiries</span></div></div><div className="footer-end"><span>© {new Date().getFullYear()} Ecolourà. All rights reserved.</span><span>THOUGHTFUL BY NATURE. PERSONAL BY DESIGN.</span><a href="#home">Back to top ↑</a></div></footer>
     <ProductModal product={selected} onClose={() => setSelected(null)} onRequestSample={p => { setSelected(null); setInquiry(p.name); }} />
-    <WhatsAppEnquiry product={whatsappProduct} onProductChange={setWhatsappProduct} />
+    <WhatsAppEnquiry product={whatsappProduct} onProductChange={openWhatsApp} />
+    <AIChatbot open={chatOpen && inquiry === null} onOpen={openChat} onClose={closeChat} />
     {inquiry !== null && <Inquiry initialProduct={inquiry} onClose={closeInquiry} />}
   </div>;
 }

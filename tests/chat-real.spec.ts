@@ -1,0 +1,30 @@
+import { test, expect } from '@playwright/test';
+
+test('actual WebLLM download, streaming, history, and network-free inference', async ({ page }) => {
+  test.skip(process.env.CHAT_REAL_MODEL !== '1', 'Opt in: npm run test:chat:real (approximately 300 MB first download).');
+  test.setTimeout(15 * 60_000);
+  await page.goto('/');
+  const supported = await page.evaluate(async () => !!(await navigator.gpu?.requestAdapter()));
+  test.skip(!supported, 'Real inference requires a usable WebGPU adapter.');
+  await page.getByRole('button', { name: 'Open AI assistant', exact: true }).click();
+  const panel = page.getByRole('dialog', { name: 'Ecolourà assistant' });
+  await panel.getByRole('button', { name: 'Start chatting', exact: true }).click();
+  await expect(panel.locator('.local-chat-status')).toContainText('AI assistant ready', { timeout: 12 * 60_000 });
+  const external: string[] = [];
+  page.on('request', request => { if (new URL(request.url()).origin !== new URL(page.url()).origin) external.push(request.url()); });
+  await page.route('**/*', route => new URL(route.request().url()).origin === new URL(page.url()).origin ? route.continue() : route.abort());
+  await panel.getByLabel('Message the AI assistant').fill('What is your contact email?');
+  await panel.getByLabel('Message the AI assistant').press('Enter');
+  await expect(panel.getByRole('button', { name: 'Stop', exact: true })).toBeVisible();
+  await expect(panel.locator('.local-chat-message-assistant p')).not.toBeEmpty({ timeout: 120_000 });
+  await expect(panel.locator('.local-chat-status')).toContainText('AI assistant ready', { timeout: 120_000 });
+  await expect(panel.locator('.local-chat-message-assistant')).toContainText('ecolourahotelsuppliers@gmail.com');
+  await panel.getByLabel('Message the AI assistant').fill('Repeat that email address.');
+  await panel.getByLabel('Message the AI assistant').press('Enter');
+  await expect(panel.getByRole('button', { name: 'Stop', exact: true })).toBeVisible();
+  await expect(panel.locator('.local-chat-status')).toContainText('AI assistant ready', { timeout: 120_000 });
+  await expect(panel.locator('.local-chat-message-assistant').last()).toContainText('ecolourahotelsuppliers@gmail.com');
+  expect(external).toEqual([]);
+  await panel.getByRole('button', { name: 'New Chat', exact: true }).click();
+  await expect(panel.locator('.local-chat-message')).toHaveCount(0);
+});

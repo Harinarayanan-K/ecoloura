@@ -1,0 +1,5 @@
+# Generated tooling and optional large local model copies.
+node_modules/
+test-results/
+playwright-report/
+public/ai-models/

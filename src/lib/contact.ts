@@ -1,6 +1,8 @@
-export const contactEmail = 'ecolourahotelsuppliers@gmail.com';
-export const contactPhone = '+918590365077';
-export const catalogueUrl = '/downloads/ecoloura-product-catalogue.pdf';
+import { publicAsset } from './publicAsset';
+import { businessInfo } from '../data/siteData';
+export const contactEmail = businessInfo.email;
+export const contactPhone = businessInfo.phone;
+export const catalogueUrl = publicAsset('/downloads/ecoloura-product-catalogue.pdf');
 
 export function whatsappUrl(message: string) {
   return `https://wa.me/${contactPhone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
