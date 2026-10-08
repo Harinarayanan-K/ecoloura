@@ -75,3 +75,10 @@
 .local-chat-options p{margin:10px 0;font-size:10px}
 .local-chat-download .local-chat-first-use{font-size:12px;line-height:1.85;margin:0 0 18px}
 .local-chat-loading{padding:18px 0 8px}
+
+.local-chat-website-help{margin:18px 0;padding-top:16px;border-top:1px solid #d7e0cb}
+.local-chat-website-help p{font-size:11px;line-height:1.7;color:#596e4a;margin-bottom:10px}
+.local-chat-website-help .premium-button{width:100%;font-size:11px;padding:12px 15px;justify-content:space-between}
+.local-chat-website-help small{display:block;margin-top:10px;font-size:10px;line-height:1.7;color:#596e4a}
+
+.local-chat-download>summary{cursor:pointer;font-size:10px;color:#596e4a;list-style-position:inside;padding:0 0 10px}

@@ -3,3 +3,8 @@ node_modules/
 test-results/
 playwright-report/
 public/ai-models/
+
+.env
+.env.*
+!.env.example
+.vercel/

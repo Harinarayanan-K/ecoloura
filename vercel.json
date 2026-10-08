@@ -1,0 +1,6 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "functions": { "api/chat.ts": { "maxDuration": 60, "supportsCancellation": true } }
+}

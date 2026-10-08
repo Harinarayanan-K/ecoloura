@@ -1,3 +1,5 @@
+> Archived: this browser-AI implementation has been replaced by Groq. See [current setup](groq-chatbot.md). The instructions and tests below describe the former architecture.
+
 # Local AI validation — 8 October 2026
 
 Tests were run on the built **static** site, served locally for verification. The runtime was not replaced with a mock for the real-inference checks.
