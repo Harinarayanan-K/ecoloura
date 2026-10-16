@@ -13,9 +13,9 @@ export const faqs = [
 ];
 
 export const sampleReviews = [
-        ['“A coordinated amenity selection makes our rooms feel more considered. Having our own branding on the essentials is a lovely finishing touch.”', 'Hotel purchasing team', 'Sample hospitality review'],
-        ['“We value a supplier who understands everyday patient-care needs and helps us plan our essential products around regular requirements.”', 'Healthcare procurement team', 'Sample healthcare review'],
-        ['“From choosing the right guest kits to planning repeat orders, a personal and practical approach makes the process much easier.”', 'Property operations team', 'Sample property review'],
+        ['“A coordinated amenity selection makes our rooms feel more considered. Having our own branding on the essentials is a lovely finishing touch.”', 'Hotel Waves Inn', 'Hospitality partner · Illustrative review'],
+        ['“We value a supplier who understands everyday patient-care needs and helps us plan our essential products around regular requirements.”', 'KIMS Al Shifa', 'Healthcare partner · Illustrative review'],
+        ['“From choosing the right guest kits to planning repeat orders, a personal and practical approach makes the process much easier.”', 'Erica’s Property Management', 'Property management partner · Illustrative review'],
       ];
 
 export const businessInfo = {
