@@ -37,7 +37,7 @@ export function WhatsAppEnquiry({ product, onProductChange }: WhatsAppEnquiryPro
     track('whatsapp_click', 'floating_widget', product || undefined);
   };
 
-  return <aside className="whatsapp-widget" aria-label="WhatsApp enquiries">
+  return <aside className="whatsapp-widget" aria-label="WhatsApp enquiries" data-beasties-container>
     {open && <div className="whatsapp-panel" id="whatsapp-enquiry" ref={panel} role="region" aria-labelledby="whatsapp-title">
       <button className="whatsapp-close" onClick={close} aria-label="Close WhatsApp enquiry"><X size={17} /></button>
       <span className="eyebrow">A QUICK CONVERSATION</span>

@@ -1,7 +1,7 @@
 import { track } from '../lib/analytics';
 import { contactEmail } from '../lib/contact';
 export function PrivacyNotice() {
-  return <article className="section-shell privacy-notice"><span className="eyebrow">ECOLOURÀ</span><h1>Enquiry privacy notice</h1>
+  return <article className="section-shell privacy-notice" data-beasties-container><span className="eyebrow">ECOLOURÀ</span><h1>Enquiry privacy notice</h1>
     <p>When you enquire, Ecolourà uses your contact details, property name, location and product requirements to respond, prepare a quotation and discuss supply. Please do not include guest information, payment details or sensitive personal information.</p>
     <h2>How your enquiry is handled</h2><p>Online form submissions, when enabled, are sent through our email delivery provider, Resend, to the business inbox. Acceptance by the email service is not confirmation of inbox delivery or an order. Delivery failures keep your details on screen so you can retry or contact us directly.</p>
     <p>Continuing in WhatsApp opens a message for you to send. WhatsApp handles messages under its own privacy terms. Telephone and email links open your chosen apps. The AI assistant sends the messages you type to Groq to generate a response; avoid sharing confidential information in the assistant.</p>

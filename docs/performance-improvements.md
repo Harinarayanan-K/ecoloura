@@ -1,5 +1,7 @@
 # Performance and readability improvements — 22 October 2026
 
+Follow-up for the remaining render-blocking stylesheet, dental thumbnail and unattributed layout warning: [critical-css-improvements.md](critical-css-improvements.md). Its measurements supersede the snapshots below for the current build.
+
 This update addresses the mobile image-delivery, font-loading, unused-CSS and contrast findings in the supplied PageSpeed screenshots. It preserves the existing catalogue, branding, quotation/WhatsApp behavior, tracking and chatbot. The header remains “Let’s talk”; only the floating WhatsApp launcher is icon-only.
 
 ## Implementation

@@ -1,0 +1,89 @@
+{
+  "scope": "Local production preview, not the public website. Single lab runs; no claim of a confirmed field improvement.",
+  "runs": {
+    "before-mobile": {
+      "lighthouseVersion": "12.8.2",
+      "fetchTime": "2026-10-22T11:05:02.994Z",
+      "url": "http://127.0.0.1:3002/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1661.109,
+        "largest-contentful-paint": 2786.1089999999995,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "render-blocking-resources": 450
+      },
+      "renderBlockingRequests": [
+        {
+          "url": "http://127.0.0.1:3002/assets/index-DuxaLIAa.css",
+          "totalBytes": 12041,
+          "wastedMs": 156
+        }
+      ],
+      "trace": {
+        "largestLayoutMs": 29.614,
+        "totalLayoutMs": 33.549,
+        "layoutsNestedInScriptEvents": 0
+      }
+    },
+    "after-mobile": {
+      "lighthouseVersion": "12.8.2",
+      "fetchTime": "2026-10-22T11:15:20.946Z",
+      "url": "http://127.0.0.1:3002/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1804.2404,
+        "largest-contentful-paint": 2854.2404,
+        "total-blocking-time": 3.5,
+        "cumulative-layout-shift": 0,
+        "render-blocking-resources": 0
+      },
+      "renderBlockingRequests": [],
+      "trace": {
+        "largestLayoutMs": 16.886,
+        "totalLayoutMs": 77.844,
+        "layoutsNestedInScriptEvents": 0
+      }
+    },
+    "after-desktop": {
+      "lighthouseVersion": "12.8.2",
+      "fetchTime": "2026-10-22T11:18:34.417Z",
+      "url": "http://127.0.0.1:3002/",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 412.38385,
+        "largest-contentful-paint": 774.447825,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0.0001503839779524936,
+        "render-blocking-resources": 0
+      },
+      "renderBlockingRequests": []
+    }
+  },
+  "dentalThumbnail": {
+    "beforeBytes": 22090,
+    "afterBytes": 17052,
+    "reductionPercent": 22.806699864191945,
+    "width": 320,
+    "quality": 74,
+    "source": "Existing original dental-kit-square.webp"
+  }
+}

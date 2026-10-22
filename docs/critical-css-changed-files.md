@@ -1,0 +1,47 @@
+# Critical CSS follow-up: changed files
+
+Includes source, documentation, the optimized thumbnail, the restored hero text animation and regenerated production output. Old asset hashes are removed and replaced by the new build outputs.
+
+- `dist/assets/LocalChatPanel-OuD_fOCQ.js`
+- `dist/assets/LocalChatPanel-fEeXPwCl.js`
+- `dist/assets/images/products/dental-kit-square-320.webp`
+- `dist/assets/index-BKu0D2Qa.js`
+- `dist/assets/index-DAkALPWP.css`
+- `dist/assets/index-DuxaLIAa.css`
+- `dist/assets/index-lOqm0vDd.js`
+- `dist/hotel-amenities-kerala/index.html`
+- `dist/index.html`
+- `dist/privacy/index.html`
+- `dist/products/bamboo-comb/index.html`
+- `dist/products/bamboo-toothbrush/index.html`
+- `dist/products/comb/index.html`
+- `dist/products/conditioner-shower-gel-set/index.html`
+- `dist/products/dental-kit/index.html`
+- `dist/products/guest-grooming-set/index.html`
+- `dist/products/kraft-dental-kit/index.html`
+- `dist/products/loofah/index.html`
+- `dist/products/notepad-pen/index.html`
+- `dist/products/revitalizing-shower-gel/index.html`
+- `dist/products/room-slippers/index.html`
+- `dist/products/sewing-kit/index.html`
+- `dist/products/shave-gel-sachets/index.html`
+- `dist/products/shaving-kit/index.html`
+- `dist/products/shower-cap/index.html`
+- `dist/products/vanity-kit/index.html`
+- `dist/products/wheat-straw-razor/index.html`
+- `docs/critical-css-changed-files.md`
+- `docs/critical-css-improvements.md`
+- `docs/critical-css-results.json`
+- `docs/performance-improvements.md`
+- `package-lock.json`
+- `package.json`
+- `public/assets/images/products/dental-kit-square-320.webp`
+- `scripts/optimize_images.py`
+- `scripts/prerender.mjs`
+- `src/App.tsx`
+- `src/components/AIChatbot.tsx`
+- `src/components/PrivacyNotice.tsx`
+- `src/components/ProductDetail.tsx`
+- `src/components/WhatsAppEnquiry.tsx`
+- `src/styles/b2b.css`
+- `tests/critical-css.spec.ts`

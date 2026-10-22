@@ -23,7 +23,10 @@ for url in sorted(paths):
             copy = image.copy()
             copy.thumbnail((width, width), Image.Resampling.LANCZOS)
             output = source.with_name(f'{source.stem}-{width}.webp')
-            copy.save(output, 'WEBP', quality=80, method=6)
+            # The small dental card was still flagged for compression by PSI.
+            # Regenerate from the original photo, never from a lossy derivative.
+            quality = 74 if source.stem == 'dental-kit-square' and width == 320 else 80
+            copy.save(output, 'WEBP', quality=quality, method=6)
             if width == 320:
                 variant_bytes += output.stat().st_size
 

@@ -134,7 +134,7 @@ export default function App({ path = typeof window === 'undefined' ? '/' : windo
   return <div className="premium-site" id="top">
     <a className="skip-link" href="#main-content">Skip to content</a>
     <div className="announcement">THOUGHTFUL AMENITIES. EXCEPTIONAL CARE.<span>For hospitality & healthcare <ArrowUpRight size={12} /></span></div>
-    <header className="premium-header">
+    <header className="premium-header" data-beasties-container>
       <a className="wordmark" href="/" aria-label="Ecolourà home">ecolourà<span>HOSPITALITY AMENITIES</span></a>
       <nav aria-label="Main navigation">{links.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</nav>
       <button className="header-quote" onClick={() => setInquiry('')}>Let’s talk <ArrowUpRight size={17} /></button>
@@ -143,7 +143,7 @@ export default function App({ path = typeof window === 'undefined' ? '/' : windo
     </header>
     <main id="main-content">
       {isPrivacy ? <PrivacyNotice /> : productPage ? <ProductDetail product={productPage} onQuote={() => setInquiry(productPage.name)} /> : <>
-      <section className="welcome-hero" id="home" aria-label="Hospitality amenities, thoughtfully supplied">
+      <section className="welcome-hero" id="home" aria-label="Hospitality amenities, thoughtfully supplied" data-beasties-container>
         <picture className="welcome-hero-picture"><source media="(max-width: 560px)" srcSet={heroMobileSrcSet} sizes="100vw" /><RevealImage variant="hero" className="welcome-hero-image" src="/assets/images/hero-hospitality-v2.webp" alt="Morning light falling across a stone guest-room vanity with fresh linen and tropical greenery" srcSet={heroDesktopSrcSet} sizes="100vw" width="1672" height="941" fetchPriority="high" /></picture>
         <div className="welcome-hero-shade" aria-hidden="true" />
         <div className="welcome-hero-content">
