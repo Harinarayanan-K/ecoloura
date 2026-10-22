@@ -1,0 +1,627 @@
+/*-----------------------------------------------------------------------------------
+  ecolourà - Luxury Heritage Hotel Amenities & Supplies
+  Bexon Index-11 Production CSS Design System
+-----------------------------------------------------------------------------------*/
+
+:root {
+  /* Typography */
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+
+  /* Bexon Theme Exact Colors */
+  --color-primary: #1e8a8a;
+  --color-primary-hover: #166e6e;
+  --color-primary-light: rgba(30, 138, 138, 0.12);
+  --color-primary-glow: rgba(30, 138, 138, 0.25);
+  
+  --color-heading: #0c1e21;
+  --color-text-body: #364e52;
+  --color-text-muted: #67787a;
+  --color-text-light: #a9b8b8;
+  --color-white: #ffffff;
+  
+  --color-bg-canvas: #edf3f3;
+  --color-bg-card: #ffffff;
+  --color-bg-alt: #e3eded;
+  
+  /* Dark Theme Section Colors (Bexon Solutions & Footer) */
+  --color-dark-bg: #0c1e21;
+  --color-dark-card: #132528;
+  --color-dark-card-hover: #182e32;
+  --color-dark-border: rgba(255, 255, 255, 0.09);
+  
+  --color-border: #cad4d4;
+  --color-border-subtle: #e1e7e7;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(12, 30, 33, 0.04);
+  --shadow-md: 0 10px 30px rgba(12, 30, 33, 0.07);
+  --shadow-lg: 0 20px 50px rgba(12, 30, 33, 0.12);
+  --shadow-header: 0 10px 40px rgba(12, 30, 33, 0.07);
+  --shadow-button: 0 6px 20px rgba(30, 138, 138, 0.25);
+
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-canvas);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Ambient Lighting */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(30, 138, 138, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-gap {
+  padding: 100px 0;
+}
+
+/* ==========================================================================
+   BADGES & PILLS
+   ========================================================================== */
+.sub-title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(30, 138, 138, 0.1);
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border: 1px solid rgba(30, 138, 138, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.sub-title-badge.dark-badge {
+  background: rgba(30, 138, 138, 0.18);
+  color: #4ed8d8;
+  border-color: rgba(30, 138, 138, 0.35);
+}
+
+.badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 14px;
+}
+.dark-badge .badge-icon {
+  color: #4ed8d8;
+}
+
+.sec-heading {
+  margin-bottom: 50px;
+}
+.sec-heading.text-center {
+  text-align: center;
+}
+.sec-heading.text-center .sub-title-badge {
+  margin-left: auto;
+  margin-right: auto;
+}
+.sec-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--color-heading);
+  max-width: 760px;
+  line-height: 1.2;
+}
+.sec-heading.text-center .sec-title {
+  margin-left: auto;
+  margin-right: auto;
+}
+.sec-desc {
+  font-size: 17px;
+  color: var(--color-text-muted);
+  max-width: 640px;
+  margin-top: 14px;
+  line-height: 1.6;
+}
+.sec-heading.text-center .sec-desc {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   BUTTONS (BEXON 11 STYLE WITH ROTATING ARROW BADGE)
+   ========================================================================== */
+.tj-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 8px 10px 8px 24px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-button);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.tj-primary-btn .btn-text {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tj-primary-btn .btn-icon {
+  width: 38px;
+  height: 38px;
+  background-color: var(--color-heading);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: transform 0.4s var(--ease-spring), background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.tj-primary-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30, 138, 138, 0.35);
+}
+
+.tj-primary-btn:hover .btn-icon {
+  transform: rotate(45deg);
+  background-color: #040d0e;
+}
+
+.tj-outline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: var(--color-heading);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  transition: var(--transition);
+}
+
+.tj-outline-btn:hover {
+  background: var(--color-white);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.text-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-heading);
+  letter-spacing: 0.02em;
+  transition: var(--transition);
+}
+
+.text-btn .btn-icon {
+  width: 32px;
+  height: 32px;
+  background: #e2ecec;
+  color: var(--color-heading);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: var(--transition);
+}
+
+.text-btn:hover {
+  color: var(--color-primary);
+}
+
+.text-btn:hover .btn-icon {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   PRODUCTS & AMENITIES CATALOG (ECOLOURA REAL PRODUCTS)
+   ========================================================================== */
+.products-section {
+  background: var(--color-bg-canvas);
+  position: relative;
+}
+
+.product-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 45px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-heading);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(30, 138, 138, 0.25);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.product-card {
+  background: var(--color-white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-subtle);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(30, 138, 138, 0.3);
+}
+
+.product-thumb-wrap {
+  width: 100%;
+  height: 250px;
+  background: #f4f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-thumb-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.08));
+}
+
+.product-card:hover .product-thumb-wrap img {
+  transform: scale(1.08);
+}
+
+.product-category-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(30, 138, 138, 0.15);
+}
+
+.product-quick-view-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.product-card:hover .product-quick-view-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-quick-view-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.product-content {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  font-size: 14.5px;
+  color: var(--color-text-body);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.product-spec-pill {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.product-inquire-link {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.product-inquire-link:hover {
+  color: var(--color-heading);
+}
+
+/* ==========================================================================
+   PRODUCT QUICK-VIEW MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 30, 33, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  background: var(--color-white);
+  border-radius: 24px;
+  max-width: 780px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.35s var(--ease-spring);
+}
+
+.modal-overlay.active .modal-box {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-bg-canvas);
+  color: var(--color-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 10;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+}
+
+.modal-image-side {
+  background: #f2f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.modal-image-side img {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+}
+
+.modal-info-side {
+  padding: 45px 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(30, 138, 138, 0.12);
+  padding: 4px 12px;
+  border-radius: 999px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-heading);
+  margin-bottom: 14px;
+}
+
+.modal-desc {
+  font-size: 15.5px;
+  color: var(--color-text-body);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.modal-specs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.modal-specs-list li {
+  font-size: 13.5px;
+  color: var(--color-text-body);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-specs-list li svg {
+  color: var(--color-primary);
+}
+
+
+/* Existing catalogue and modal breakpoints, retained from the previous base. */
+@media(max-width:992px){
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .modal-grid{grid-template-columns:1fr}
+  .modal-image-side{padding:24px;height:220px}
+  .modal-info-side{padding:30px 24px}
+}
+@media(max-width:768px){
+  .section-gap{padding:70px 0}
+  .sec-title{font-size:32px}
+  .products-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+}

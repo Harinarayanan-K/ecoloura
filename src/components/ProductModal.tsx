@@ -40,7 +40,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             <RevealImage
               variant="detail"
               id="modal-product-img" 
-              src={product.image} 
+              src={product.image}
+              sizes="(max-width: 560px) 200px, (max-width: 992px) 320px, 300px"
               alt={product.name} 
               width="1024"
               height="1024"

@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Sparkles, X } from 'lucide-react';
-import '../styles/chatbot.css';
+import '../styles/chatbot-launcher.css';
 
 const LocalChatPanel = lazy(() => import('../chat/LocalChatPanel'));
 interface Props { open: boolean; onOpen: () => void; onClose: () => void; }

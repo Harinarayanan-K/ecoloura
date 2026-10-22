@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { productImageProps } from '../lib/responsiveImages';
 import { publicAsset } from '../lib/publicAsset';
 
 interface RevealImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -8,7 +9,7 @@ interface RevealImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 /** Reveal only after decoding and entering view, including cached and lazy images. */
-export function RevealImage({ src, className = '', variant = 'product', revealDelay = 0, style, fetchPriority, ...props }: RevealImageProps) {
+export function RevealImage({ src, className = '', variant = 'product', revealDelay = 0, style, fetchPriority, srcSet, sizes, decoding = 'async', ...props }: RevealImageProps) {
   const ref = useRef<HTMLImageElement>(null);
   const [readySrc, setReadySrc] = useState<string | null>(null);
   const [visibleSrc, setVisibleSrc] = useState<string | null>(null);
@@ -50,7 +51,8 @@ export function RevealImage({ src, className = '', variant = 'product', revealDe
   }, [src]);
 
   const ready = readySrc === src && visibleSrc === src;
-  return <img {...props} {...(fetchPriority ? { fetchpriority: fetchPriority } : {})} src={publicAsset(src)} ref={ref}
+  const responsive = productImageProps(src, sizes || '(max-width: 560px) 86vw, 640px');
+  return <img {...props} decoding={decoding} srcSet={srcSet || responsive.srcSet} sizes={sizes || responsive.sizes} {...(fetchPriority ? { fetchpriority: fetchPriority } : {})} src={publicAsset(src)} ref={ref}
     className={`image-reveal image-reveal-${variant} ${ready ? 'is-ready' : ''} ${className}`}
     style={{ ...style, '--image-delay': `${revealDelay}ms` } as React.CSSProperties} />;
 }

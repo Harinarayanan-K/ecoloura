@@ -1,3 +1,4 @@
+import '../styles/chatbot.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, RotateCcw, Send, ShieldCheck, Square, X } from 'lucide-react';
 import { CHAT_CONFIG } from './config';

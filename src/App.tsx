@@ -1,3 +1,4 @@
+import { heroDesktopSrcSet, heroMobileSrcSet } from './lib/responsiveImages';
 import { WhatsAppIcon } from './components/WhatsAppIcon';
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ArrowRight, Menu, X, PackageCheck, Palette, Truck, Building2, HeartPulse, Hotel, Check, Plus, Minus, Mail, Phone, Quote, Pause, Play, Download } from 'lucide-react';
@@ -143,7 +144,7 @@ export default function App({ path = typeof window === 'undefined' ? '/' : windo
     <main id="main-content">
       {isPrivacy ? <PrivacyNotice /> : productPage ? <ProductDetail product={productPage} onQuote={() => setInquiry(productPage.name)} /> : <>
       <section className="welcome-hero" id="home" aria-label="Hospitality amenities, thoughtfully supplied">
-        <RevealImage variant="hero" className="welcome-hero-image" src="/assets/images/hero-hospitality-v2.webp" alt="Morning light falling across a stone guest-room vanity with fresh linen and tropical greenery" fetchPriority="high" />
+        <picture className="welcome-hero-picture"><source media="(max-width: 560px)" srcSet={heroMobileSrcSet} sizes="100vw" /><RevealImage variant="hero" className="welcome-hero-image" src="/assets/images/hero-hospitality-v2.webp" alt="Morning light falling across a stone guest-room vanity with fresh linen and tropical greenery" srcSet={heroDesktopSrcSet} sizes="100vw" width="1672" height="941" fetchPriority="high" /></picture>
         <div className="welcome-hero-shade" aria-hidden="true" />
         <div className="welcome-hero-content">
           <span className="welcome-eyebrow"><span /> {isLanding ? 'FOR HOTEL & RESORT BUYERS IN KERALA' : 'BULK SUPPLY · CUSTOM LOGO & BRANDING'}</span>

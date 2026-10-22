@@ -4,6 +4,7 @@ import { Package, Search, ArrowUpRight, Check, Download } from 'lucide-react';
 import { Product } from '../types';
 import { RevealHeading } from './RevealHeading';
 import { RevealImage } from './RevealImage';
+import { catalogueImageSizes } from '../lib/responsiveImages';
 import { catalogueUrl } from '../lib/contact';
 
 interface ProductsCatalogProps {
@@ -67,7 +68,8 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                 <span className="product-category-tag">{prod.categoryLabel}</span>
                 <RevealImage
                   revealDelay={(index % 3) * 90}
-                  src={prod.image} 
+                  src={prod.image}
+                  sizes={catalogueImageSizes}
                   alt={`Ecolourà ${prod.name} from the hotel guest amenities catalogue`}
                   loading="lazy" 
                   width="1024"

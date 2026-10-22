@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './styles/index.css';
+import './styles/fonts.css';
+import './styles/base.css';
 import './styles/premium.css';
 import './styles/b2b.css';
 

@@ -87,7 +87,6 @@ button:disabled{opacity:.6;cursor:not-allowed;transform:none!important}
   .section-shell.quote-section{padding-left:6%;padding-right:6%}
   .whatsapp-trigger{width:50px;height:50px;min-height:50px;padding:0}
   .local-chat-widget{right:82px;bottom:16px}
-  .local-chat-panel{bottom:82px;height:min(660px,calc(100dvh - 96px))}
   .inquiry-panel{padding:32px 22px}
   .product-detail-grid{margin-top:24px}
 }
@@ -98,3 +97,21 @@ button:disabled{opacity:.6;cursor:not-allowed;transform:none!important}
 /* Square catalogue photos retain their own background and natural colour. */
 .product-thumb-wrap img,.modal-image-side img{mix-blend-mode:normal}
 .product-thumb-wrap img{aspect-ratio:1/1;object-fit:cover}
+
+/* The portrait source matches the established mobile crop without downloading the landscape photo. */
+.welcome-hero-picture{position:absolute;inset:0;z-index:-3;display:block}
+.welcome-hero-picture .welcome-hero-image{z-index:auto}
+/* Readable muted copy: keep the green palette while meeting small-text contrast. */
+.trust-strip>span,.client-badge-type,.benefit-number,.benefits p,
+.catalogue-file-tag,.filter-btn,.product-desc,.product-spec-pill,
+.bespoke-stamp,.visual-caption,.client-motion-toolbar>span,.client-motion-toolbar button,
+.faq-list article p,.footer-main p,.footer-end,
+.footer-main>div>a:not(.wordmark),.footer-main>div>span:not(.footer-label){color:#53624b}
+/* Keep catalogue descriptions and contact actions readable on narrow screens. */
+.product-title{font-size:14px}
+.product-desc{font-size:13px}
+.product-spec-pill,.product-inquire-link{font-size:12px}
+.product-whatsapp-link{font-size:12px;min-height:44px}
+.footer-main p{font-size:13px}
+.footer-main>div>a:not(.wordmark),.footer-main>div>span:not(.footer-label){font-size:12px}
+.eyebrow,.products-section .sub-title-badge,.products-section .sec-desc{color:#53624b}
