@@ -13,7 +13,7 @@ The shared stylesheet is now non-blocking in the production HTML, and the flagge
 
 ## Verification and measured limits
 
-The hero text animation was subsequently restored at the owner's request. It uses a 650 ms, 8px movement with staggered heading lines; opacity stays at 1, and reduced-motion users get static text. It is CSS-driven and included in the generated critical styles. The build and 44-test suite passed again after this change. The Lighthouse snapshots below predate this animation update; scores have not been remeasured for it.
+The original hero text reveal was subsequently restored at the owner's request, replacing the lighter 650 ms slide. It reuses the existing masked heading transitions: a 1200 ms slide with 1000 ms opacity/blur transitions, staggered by 150 ms after an initial 140 ms delay. Supporting copy starts after 600 ms and the actions after 750 ms. Their initial reveal classes are rendered in the HTML so they fade in rather than flashing visible before hydration. The photograph stays immediately visible. Reduced-motion and no-JavaScript visitors get visible static text. Browser checks cover both hero routes at 390px and 1440px, the original timings, the quotation dialog and both fallbacks. The Lighthouse snapshots below predate this animation update; scores have not been remeasured for it.
 
 `npm run build`, `npm run typecheck` and `npm test` passed. The suite has 44 passed tests and one skipped optional live-Groq test. There is no configured lint command.
 

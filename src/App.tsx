@@ -147,10 +147,10 @@ export default function App({ path = typeof window === 'undefined' ? '/' : windo
         <picture className="welcome-hero-picture"><source media="(max-width: 560px)" srcSet={heroMobileSrcSet} sizes="100vw" /><RevealImage variant="hero" className="welcome-hero-image" src="/assets/images/hero-hospitality-v2.webp" alt="Morning light falling across a stone guest-room vanity with fresh linen and tropical greenery" srcSet={heroDesktopSrcSet} sizes="100vw" width="1672" height="941" fetchPriority="high" /></picture>
         <div className="welcome-hero-shade" aria-hidden="true" />
         <div className="welcome-hero-content">
-          <span className="welcome-eyebrow"><span /> {isLanding ? 'FOR HOTEL & RESORT BUYERS IN KERALA' : 'BULK SUPPLY · CUSTOM LOGO & BRANDING'}</span>
+          <span className="welcome-eyebrow text-reveal-copy" style={{ '--copy-delay': '0ms' } as React.CSSProperties}><span /> {isLanding ? 'FOR HOTEL & RESORT BUYERS IN KERALA' : 'BULK SUPPLY · CUSTOM LOGO & BRANDING'}</span>
           <RevealHeading as="h1">Custom-Branded<br />Hotel Amenities<br /><em>for Hotels & Resorts</em></RevealHeading>
-          <p>Explore guest amenities and custom-logo hotel toiletries for hospitality businesses. Contact Ecolourà for product details and bulk quotations.</p>
-          <div className="welcome-hero-actions">
+          <p className="text-reveal-copy" style={{ '--copy-delay': '600ms' } as React.CSSProperties}>Explore guest amenities and custom-logo hotel toiletries for hospitality businesses. Contact Ecolourà for product details and bulk quotations.</p>
+          <div className="welcome-hero-actions text-reveal-copy" style={{ '--copy-delay': '750ms' } as React.CSSProperties}>
             {isLanding ? <a className="welcome-primary" href="#bulk-quote">Request a Bulk Quote <ArrowUpRight size={19} /></a> : <button className="welcome-primary" onClick={() => setInquiry('')}>Request a Bulk Quote <ArrowUpRight size={19} /></button>}
             <WhatsAppLink source={isLanding ? 'kerala_hero' : 'home_hero'} className="welcome-secondary">Enquire on WhatsApp <WhatsAppIcon size={19} /></WhatsAppLink>
             <a className="hero-products-link" href="#products">Explore Products <ArrowRight size={17} /></a>
