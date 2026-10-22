@@ -49,7 +49,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
           <p className="sec-desc">
             The little comforts that make a welcome complete. Explore our original product collection, available for bulk supply and custom branding.
           </p>
-          <a className="catalogue-download-link" href={catalogueUrl} download="Ecoloura-Product-Catalogue.pdf"><Download size={16} /><span>Download product catalogue</span><span className="catalogue-file-tag">PDF · 9 products</span></a>
+          <a className="catalogue-download-link" href={catalogueUrl} download="Ecoloura-Product-Catalogue.pdf"><Download size={16} /><span>Download product catalogue</span><span className="catalogue-file-tag">PDF · {products.length} products</span></a>
         </div>
 
         <div className="catalog-tools">
@@ -68,10 +68,10 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                 <RevealImage
                   revealDelay={(index % 3) * 90}
                   src={prod.image} 
-                  alt={prod.name} 
+                  alt={`Ecolourà ${prod.name} from the hotel guest amenities catalogue`}
                   loading="lazy" 
-                  width="280"
-                  height="220"
+                  width="1024"
+                  height="1024"
                 />
                 <button 
                   className="product-quick-view-btn"
@@ -84,8 +84,8 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
               </div>
 
               <div className="product-content">
-                <h3 className="product-title">{prod.name}</h3>
-                <p className="product-desc">{prod.shortDesc}</p>
+                <h3 className="product-title"><a href={`/products/${prod.id}/`}>{prod.name}</a></h3>
+                <p className="product-desc">{prod.shortDesc}</p><a className="product-quote-link" href={`/products/${prod.id}/`}>Request Bulk Quote ↗</a>
                 <div className="product-footer">
                   <span className="product-spec-pill">
                     <Check size={12} color="#1e8a8a" />
@@ -99,7 +99,7 @@ export const ProductsCatalog: React.FC<ProductsCatalogProps> = ({
                     <ArrowUpRight size={14} />
                   </button>
                 </div>
-                <button className="product-whatsapp-link" onClick={() => onQuickInquire(prod)} aria-label={`Enquire about ${prod.name} on WhatsApp`}><WhatsAppIcon size={14} /><span>WhatsApp enquiry</span><ArrowUpRight size={14} /></button>
+                <button className="product-whatsapp-link" onClick={() => onQuickInquire(prod)} aria-label={`Enquire about ${prod.name} on WhatsApp`} title={`Enquire about ${prod.name} on WhatsApp`}><WhatsAppIcon size={14} /><span>WhatsApp enquiry</span><ArrowUpRight size={14} /></button>
               </div>
             </article>
           ))}

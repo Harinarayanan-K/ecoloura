@@ -4,8 +4,19 @@ export const contactEmail = businessInfo.email;
 export const contactPhone = businessInfo.phone;
 export const catalogueUrl = publicAsset('/downloads/ecoloura-product-catalogue.pdf');
 
-export function whatsappUrl(message: string) {
-  return `https://wa.me/${contactPhone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+/** The configured business number is the default; the Vite override is public build-time config. */
+export const whatsappNumber = import.meta.env?.VITE_WHATSAPP_NUMBER ?? businessInfo.phone;
+export function normalizeWhatsAppNumber(number: string): string | null {
+  if (!/^\+?[\d\s().-]+$/.test(number.trim())) return null;
+  const digits = number.replace(/\D/g, '');
+  return /^[1-9]\d{7,14}$/.test(digits) ? digits : null;
+}
+export function whatsappUrl(message: string, number = whatsappNumber): string | null {
+  const normalized = normalizeWhatsAppNumber(number);
+  return normalized ? `https://wa.me/${normalized}?text=${encodeURIComponent(message)}` : null;
+}
+export function defaultWhatsAppMessage(product?: string) {
+  return `Hello Ecolourà, I am contacting you on behalf of a hotel/resort. I would like information about your custom-branded hotel amenities and bulk pricing.${product ? ` Product of interest: ${product}.` : ''} Please share your catalogue and quotation process.`;
 }
 
 export function inquiryMessage(data: FormData) {

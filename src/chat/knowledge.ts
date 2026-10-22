@@ -4,7 +4,7 @@ import { websiteSections } from './websiteAnswers.js';
 import { CHAT_CONFIG } from './config.js';
 import type { ChatMessage } from './protocol.js';
 
-const COMPANY_FACTS = `${businessInfo.name}: ${businessInfo.overview} Products: ${productsData.map(p => p.name).join(', ')}. Contact: ${businessInfo.email}; ${businessInfo.phone}. Never invent live stock, prices, contracts, certifications, or delivery commitments. Website reviews are illustrative mock copy, not endorsements.`;
+const COMPANY_FACTS = `${businessInfo.name}: ${businessInfo.overview} Products: ${productsData.map(p => p.name).join(', ')}. Contact: ${businessInfo.email}; ${businessInfo.phone}. Never invent live stock, prices, contracts, certifications, or delivery commitments. No customer testimonials are published. Earlier mock reviews were removed and must not be presented as endorsements.`;
 
 // Small static context selection; no embeddings, database, or network request.
 export function websiteContext(question: string) {

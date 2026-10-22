@@ -1,3 +1,4 @@
+import { productsData } from '../src/data/productsData';
 import { test, expect, type Page } from '@playwright/test';
 
 async function openChat(page: Page) {
@@ -11,7 +12,7 @@ test('website and assistant open immediately without model downloads or API requ
   const calls: string[] = [];
   page.on('request', req => { if (/huggingface|binary-mlc|llm\.worker|\/api\/chat/.test(req.url())) calls.push(req.url()); });
   const panel = await openChat(page);
-  await expect(page.locator('.product-card')).toHaveCount(9);
+  await expect(page.locator('.product-card')).toHaveCount(productsData.length);
   await expect(panel.getByLabel('Message the AI assistant')).toBeEnabled();
   await expect(panel.locator('.local-chat-status')).toContainText('AI assistant ready');
   await expect(panel.locator('footer')).toContainText('sent through our website to Groq');
@@ -72,7 +73,7 @@ test('quota and missing-key errors stay inside the assistant; website still work
   await expect(panel.getByRole('alert')).toContainText('not configured');
   await panel.getByRole('button', { name: 'Close AI assistant', exact: true }).click();
   await page.getByRole('button', { name: 'Grooming Sets', exact: true }).click();
-  await expect(page.locator('.product-card')).toHaveCount(3);
+  await expect(page.locator('.product-card')).toHaveCount(productsData.filter(product => product.category === 'grooming').length);
 });
 
 test('mobile without GPU works, fits screen, Escape restores focus and WhatsApp stays separate', async ({ page }) => {

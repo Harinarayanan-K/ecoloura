@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000 --host",
-    "build": "tsc && tsc -p tsconfig.api.json && vite build",
+    "build": "tsc && tsc -p tsconfig.api.json && vite build && node scripts/prerender.mjs",
     "preview": "vite preview --port 3000",
     "test:chat": "playwright test",
-    "test:chat:real": "CHAT_REAL_MODEL=1 playwright test tests/chat-real.spec.ts"
+    "test:chat:real": "CHAT_REAL_MODEL=1 playwright test tests/chat-real.spec.ts",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.api.json --noEmit",
+    "test": "playwright test"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",

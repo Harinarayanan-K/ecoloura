@@ -42,8 +42,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               id="modal-product-img" 
               src={product.image} 
               alt={product.name} 
-              width="320"
-              height="300"
+              width="1024"
+              height="1024"
             />
           </div>
 
@@ -74,9 +74,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               )}
             </div>
 
-            <h4 style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-heading)', marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-heading)', marginBottom: '10px' }}>
               Hospitality Features
-            </h4>
+            </h3>
             <ul className="modal-specs-list">
               {product.specs.map((spec, i) => (
                 <li key={i}>

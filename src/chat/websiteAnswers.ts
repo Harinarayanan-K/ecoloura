@@ -1,4 +1,4 @@
-import { businessInfo, clients, faqs, sampleReviews } from '../data/siteData.js';
+import { businessInfo, clients, faqs } from '../data/siteData.js';
 import { productsData } from '../data/productsData.js';
 
 const normalize = (text: string) => text.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
@@ -12,7 +12,7 @@ export const websiteSections = [
   { keywords: 'sample samples try test', text: `Samples: ${faqs[3][1]}` },
   { keywords: 'contact email phone whatsapp enquiry inquiry quotation quote order form send', text: `Contact: ${businessInfo.email}; phone/WhatsApp ${businessInfo.phone}. ${businessInfo.enquiry}` },
   { keywords: 'catalogue catalog download pdf collection photos stock delivery address hours material certificate', text: businessInfo.catalogue },
-  { keywords: 'review reviews testimonial testimonials endorsement feedback', text: `All website reviews are illustrative mock content, NOT real client endorsements. Sample review text: ${sampleReviews.map(([quote, author]) => `${author}: ${quote}`).join(' ')}` },
+  { keywords: 'review reviews testimonial testimonials endorsement feedback', text: 'No customer testimonials are published. Earlier mock reviews were NOT real client endorsements and have been removed. Ask our team about client references.' },
   { keywords: 'website navigation page collection approach solutions clients animation privacy ai chatbot', text: 'Navigation: Collection (#products), Our approach (#about), Who we serve (#solutions), Our clients (#clients), Contact (#contact). Products can be filtered by category, opened for details, or enquired about via WhatsApp. Client badges scroll slowly and have a Pause/Resume button. The AI is powered by Groq through a Vercel function. No model download or WebGPU is required. Messages and recent conversation are sent to Groq for inference. The site does not store chat messages in a database or log them. Conversation display stays in browser memory, and New Chat clears it. Free provider usage limits apply.' },
 ];
 
@@ -22,7 +22,7 @@ export function websiteAnswer(question: string): string | null {
   const text = normalize(question);
   if (text.length > 300 || /\b(ignore|pretend|poem|story|translate|compare|versus)\b/.test(text)) return null;
   if (/\b(reviews?|testimonials?|endorsements?|feedback)\b/.test(text)) {
-    return 'The reviews shown on our website are illustrative sample copy, not actual client endorsements. They describe hospitality, healthcare procurement, and property operations perspectives. Please contact our team if you need client references.';
+    return 'No customer testimonials are published. Earlier mock reviews were not actual client endorsements and have been removed. Please contact our team if you need client references.';
   }
   const client = clients.find(([name]) => ` ${text} `.includes(` ${normalize(name)} `) ||
     (name === 'KIMS Al Shifa' && /\b(kims|alshifa|al shifa)\b/.test(text)) ||
@@ -38,7 +38,7 @@ export function websiteAnswer(question: string): string | null {
   if (/\b(moq|minimum|quantities)\b/.test(text)) return faqs[1][1];
   if (/\b(logo|branding|customize|customise|private label|branded|custom)\b/.test(text)) return faqs[0][1];
   if (/\b(quote|quotation|enquiry|inquiry|form|place an order|order process)\b/.test(text)) return `${businessInfo.enquiry} Contact: ${businessInfo.email}; WhatsApp ${businessInfo.phone}.`;
-  if (/\b(contact|email|phone|whatsapp|reach|call)\b/.test(text)) return `Email: ${businessInfo.email}. Phone/WhatsApp: ${businessInfo.phone}. You can also use the website enquiry form to prepare an email or WhatsApp message for our team.`;
+  if (/\b(contact|email|phone|whatsapp|reach|call)\b/.test(text)) return `Email: ${businessInfo.email}. Phone/WhatsApp: ${businessInfo.phone}. You can also use Request Bulk Quote or prepare a WhatsApp message for our team. Online form delivery requires the email integration to be enabled.`;
   if (/\b(catalogue|catalog|pdf|download)\b/.test(text)) return 'Download our product catalogue from the Collection section or the footer’s Product catalogue link. It includes our original product photographs; contact the team for a quotation and current availability.';
   if (/\b(products?|amenities|collection)\b/.test(text) && /\b(what|which|list|all|supply|offer|sell)\b/.test(text)) return `Our website collection includes ${productsData.map(p => p.name).join(', ')}. We supply institutional bulk orders, with custom branding options on enquiry.`;
   if (/\b(who are you|about|company|business|who do you serve|hospitals?|resorts?|hotels?|services)\b/.test(text)) return `${businessInfo.name} is ${businessInfo.overview.charAt(0).toLowerCase()}${businessInfo.overview.slice(1)}`;
